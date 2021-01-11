@@ -1,0 +1,142 @@
+\documentclass[12pt,a4paper,fleqn]{report}
+\include{Settings}
+\graphicspath{ {./Imagenes/}}
+	
+\begin{document}
+	\section*{Punto de Partida}
+	El objetivo de este texto es tratar de analizar el trabajo que fue hecho en conjunto con el alcance propuesto del proyecto comenzado en el LAC, y a partir de allí definir un alcance y objetivos claros. En base a lo charlado la idea es definir una/s problemáticas claras que puedan ser definidas y resueltas en un tiempo prudencial. Con este fin pensé un análisis en 3 etapas:
+	\begin{itemize}
+		\item Análisis del proyecto anterior
+		\item Simplificación de tareas que no aporten al proyecto
+		\item Propuesta de alternativa/s
+	\end{itemize}
+
+	A partir de las propuestas que hago en este informe la idea es nuevamente charlarlo de manera de antes del 18 tener en limpio el alcance. Con eso listo puedo trabajar tranquilo durante el receso y después en febrero pulirlo.
+	
+	\section*{Análisis del proyecto anterior}
+	El proyecto propuesto en el LAC se centraba en el desarrollo e implementación de un sistema de control para un vehiculo autónomo A continuación presento un desglose de las problemáticas que eso abarca, hecho desde mi punto de vista: \\
+	En primer lugar tenemos cuatro grandes ramas:
+	\begin{itemize}	
+		\item \textbf{Modelos de Simulación}. Para el armado de modelos que emulen el sistema real. Deben estar correctamente testeados para funcionar de manera genérica
+		\item \textbf{Arquitectura de hardware}. Se debe comprender como esta compuesto el vehiculo, o en caso de estar diseñando, proponer una estructura determinada.
+		\item \textbf{Parametrizacion}. El primer paso de la implementación Se debe relevar y dimensionar este hardware, de modo de instanciar los modelos de simulación e implementación
+		\item \textbf{Modelos de Implementación}. Para las pruebas en campo y evaluación de la performance. Entra en juego la relación costo computacional / performance a la hora de elegir el grado de complejidad de los controladores.
+	\end{itemize}
+
+	Dentro de la \textbf{simulación} tenemos las siguientes problemáticas:
+	\begin{enumerate}
+		\item \textbf{Arquitectura de software}. \underline{Resuelve}: la articulación de los distintos módulos dentro del sistema.
+		\item\textbf{Entorno de simulacion}. Se debe seleccionar una o varias herramientas, adecuadas para este tipo de trabajo
+		\item\textbf{Modulo de percepcion}. \underline{Resuelve}: el posicionamiento del vehiculo. En una herramienta como Gazebo es posible simularlo, en Simulink no.
+		\item \textbf{Generacion de referencias}. \underline{Resuelve}: a partir de una serie de puntos de paso entregar una ruta suave para que el vehiculo siga
+		\item \textbf{Modulo de navegacion}. \underline{Resuelve}: la adaptación de las referencias de posición y el comportamiento que debe adoptar el vehiculo en cada caso.
+		\item \textbf{Modulo de control}. \underline{Resuelve}: la necesidad de que el vehiculo siga de manera correcta y segura las referencias que provienen del modulo de navegación Se diseñan en función de los modelos de vehiculo.
+		\item \textbf{Modelos de vehiculo}. \underline{Resuelve}: la necesidad de emular de manera digital al vehiculo para correr las simulaciones. Van desde un modelo cinemático simple hasta un modelo multicuerpo (gemelo digital) que copie al auto en cuestión.
+		\item \underline{Opcional}: Modelos que emulen a los actuadores. 	
+	\end{enumerate}
+
+\vspace{1em}
+Dentro de la \textbf{implementación} tenemos las siguientes problemáticas:
+\begin{enumerate}
+	\item\textbf{Arquitectura de software}
+	\item\textbf{Modulo de percepcion}.
+	\item\textbf{Generacion de referencias}.
+	\item\textbf{Modulo de navegacion}.
+	\item\textbf{Modulo de control}.
+	\item\textbf{Desarrollo de firmware}. Resuelve: la comunicación entre el alto nivel (Simulación) y el bajo nivel (actuadores). Involucra programar los microcontroladores y elegir los protocolos de comunicación  	
+\end{enumerate}
+
+\subsection*{Simplificación del problema}
+En total contamos con 16 problemáticas (las 14 enumeradas + arq hardware + parametrizacion). De todos modos vale notar que los modelos de simulación e implementación comparten características y no son completamente independientes.
+
+En primer lugar veamos cuales de estas están resueltas o pueden descartarse a simple vista:
+\subsubsection*{Descartables}
+\begin{itemize}
+	\item \textbf{Modulo de percepcion}. Tal vez una de las cuestiones mas importantes para un problema de manejo autónomo Nos habían pedido una detección de obstáculos simple. Creo que eso no aportaría nada al PFI, mas que perder el tiempo.
+	\item \textbf{Modulo de navegacion}. Sin una detección de obstáculos el comportamiento del vehículo puede reducirse a un simple estado de speed tracking. También pueden desarrollarse otros estados, pero de nuevo eso ya esta mas relacionado con la interacción con el ambiente. Como no es el principal interés del proyecto, propongo descartarlo.
+	\item \textbf{Desarrollo de firmware}. Es una tarea 100\% de electrónica, y ademas es muy especifica de la implementación No aporta nada al PFI
+	\item \textbf{Parametrizacion}. La idea creo sería hacer casos genéricos de manera que puedan ser usados por otra persona para realizar la parametrizacion e implementación
+\end{itemize}
+
+\subsubsection*{Resueltas}
+\begin{itemize}
+	\item \textbf{Arquitectura de software}. Esta idea la comprendimos bastante bien y elegimos un modelo claro para descomponer las partes y que permite realizar un escalado. El objetivo era que a partir de lo que hicimos nosotros pueda venir otra persona y mejorarlo, sin necesidad de tocar lo que ya esta hecho y aprovechando todo el desarrollo. Por ejemplo: si alguien quería agarrar y desarrollar una red neuronal para la detección de objetos podía usar todo nuestro bloque de control y modelo vehicular sin problemas.
+	\item \textbf{Generacion de referencias}. Mediante un sistema relativamente simple de refinamiento y splines.
+	\item \textbf{Entorno de simulacion}. Por sencillez, flexibilidad  y conocimiento del posible usuario elegiría sin duda MATLAB / Simulink. Ademas tengo bastante trabajo hecho allí
+\end{itemize}
+
+\subsection*{Propuesta de alternativas}
+\subsubsection*{Análisis de la situación actual}
+El numero de problemas a resolver se redujo de 16 a 10. Si acotamos la cuestión al entorno de MATLAB, tenemos la estructura de software hecha:
+\begin{itemize}
+	\item Escalable. Cosa que se puedan agregar mas casos y variantes para mejorar la herramienta.
+	\item Con una interfaz de usuario relativamente sencilla. Para que sea fácil de usar.
+	\item Documentada
+	\item Con un sistema de carga de archivos y guardado de salidas también sencillo y claro.
+\end{itemize}
+
+Así pasamos de 10 problemas por resolver a solo 5. Creo que este es el primer punto de partida en el cual tendríamos que acordar (es decir, ver que te parece o si tendríamos que borrar todo esto de un plumazo). Sin embargo para irlo pensando voy ganando tiempo hablando sobre estos 5 problemas.
+
+\begin{itemize}
+	\item Arquitectura de hardware.
+	\item Modelos de vehiculo
+	\item Modelos de actuadores
+	\item Modelos de control (diseño e implementación) 
+\end{itemize}
+
+Acá es difícil tratar cada uno de estos problemas como algo completamente distinto, porque están todos interconectados. La \textbf{arquitectura es en realidad el punto de unión de todos}. En función de ella se definen los otros 4. Involucra saber, sin parametrizar, como esta formado el sistema en cuestión sobre el que vamos a trabajar (en este caso el tipo de auto). Es decir:
+\begin{itemize}
+	\item Mecanismo de suspensión (Normalmente modelado como barras y resortes)
+	\item Tipo de transmisión Hay caja de cambio? Hay diferenciales? Como se produce el flujo de potencia del motor a la rueda?
+	\item Tipo de neumático. Conocemos sus parámetros? Podemos usar un modelo complejo (como la formula mágica) o nos limitamos a algo simple.
+	\item Tipos de actuadores. Como se le da la dirección al vehiculo, hay un volante o le mandamos un comando (como en autos a escala símiles al que estábamos usando). Que tipo de motor tiene? Cuales son sus limitaciones?
+\end{itemize}
+
+\subsubsection*{Posibles enfoques}
+Así como lo veo se me ocurren estas 3 alternativas para darle forma al PFI.
+\begin{itemize}
+	\item La primera creo es la mas cercana a lo que estábamos haciendo. Involucraría considerar un vehiculo a escala y: 
+		\begin{itemize}
+			\item Modelarlo con distintos ordenes de complejidad
+			\item Armarle controladores adecuados
+			\item Probar el desempeno utilizando distintas trayectorias y establecer criterios dentro de los cuales un modelo es útil o no
+			\item Dejarlo armado a modo de biblioteca, de manera que pueda ser expandido o utilizado por un futuro PFI.
+		\end{itemize}
+	\item La segunda involucra elegir un modelo de auto en particular (con una determinada arquitectura) y:
+		\begin{itemize}
+			\item Modelarlo de manera compleja. Tratando de copiar sus características de suspensión y transmisión lo mejor posible
+			\item Armar un sistema de entrada de señales que emulen los comandos del volante, acelerador y freno. Acá no hay controladores sino que el controlador es un humano.
+			\item No se me ocurre bien como ensayaría esto. Se puede probar la respuesta ante las diferentes entradas pero no veo claro el objetivo. (En cambio en el caso anterior el objetivo es que siga una trayectoria dentro de las limitaciones físicas existentes)
+			\item Dejarlo armado a modo de biblioteca, de manera que pueda ser expandido o utilizado por un futuro PFI.
+		\end{itemize}		
+	\item La tercera es mas genérica e involucra hacer una biblioteca modular que involucre distintas formas de suspensión, transmisión y neumáticos De manera que un usuario pueda relevar un auto y elegir los módulos que mas se parezcan a lo que tiene presente. Para eso deberían estudiarse los tipos de transmisión, suspensión, etc. mas comunes, y proceder en consecuencia. Nuevamente no me quedaría claro como ensayar estos modelos para probar que están bien "Programados"
+\end{itemize}
+
+En lineas generales, la primera trata de seguir la lógica de un problema de manejo autónomo pero acotando bastante el alcance de este PFI en particular. Por ello se limita a trabajar con un modelo de auto a escala completo (transmisión y suspensión relativamente simples).\vspace{5pt} \\
+La segunda complejiza el modelado vehicular pero se independiza de la idea de autonomía (es un cambio grande pero permite reutilizar una parte del trabajo). Los interrogantes que me surgen son: que tipo de arquitectura elegir y como probar el modelo. \vspace{5pt}\\
+La tercera involucra prácticamente re-definir todo y arrancar "de cero". Soluciona en parte el problema del tipo de arquitectura ya que contempla las mas comunes y no solo una, pero permanece la problemática de como testear que este todo correctamente armado.
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+\end{document}

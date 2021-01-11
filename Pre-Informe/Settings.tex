@@ -1,0 +1,110 @@
+% Inclusion de paquetes
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{multirow}
+\usepackage{pdfpages}
+\usepackage{float}
+\usepackage{subfig}
+
+\usepackage{tcolorbox}
+\usepackage{sectsty}
+\usepackage[hidelinks]{hyperref}
+\usepackage{array}
+\usepackage[font=small,labelfont=bf,tableposition=top]{caption}
+
+\usepackage{booktabs}
+\usepackage{titlesec}
+\usepackage{color, soul, ulem}
+
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+
+\usepackage{sectsty}
+\usepackage{ragged2e}
+\usepackage{graphicx}
+\usepackage{parskip}
+\usepackage{gensymb}
+\usepackage{array}
+
+\usepackage[nottoc,notlot,notlof]{tocbibind}
+\usepackage[left=2cm, right=1.50cm, top=2cm, bottom=2.00cm]{geometry}
+
+% Profundidades
+\setcounter{secnumdepth}{3}		% Numero hasta prof. 3
+\setcounter{tocdepth}{3}		% Muestro en TOC hasta prof. 3
+\AtBeginDocument{\renewcommand{\contentsname}{Tabla de Contenidos}}
+
+% Definición de funciones
+\newcommand\red{\color{red}}
+\newcommand{\hsp}{\hspace{20pt}}
+
+\usepackage{listings}
+	\lstset{
+		tabsize=4, language=Python
+	}
+	\lstset{
+		morekeywords={cell,strcat}
+	}
+
+\definecolor{gray75}{gray}{0.75}
+\definecolor{negro}{RGB}{0, 0, 0}
+\definecolor{rojounm}{RGB}{201, 36, 70}
+\definecolor{gris}{RGB}{226, 226, 226}
+
+% Formateo del título chapter
+\titleformat{\chapter}[hang]{\Huge\bfseries}{\thechapter\hsp\textcolor{gray75}{$\vert$}\hsp}{0pt}{\Huge\bfseries}
+
+
+
+% Definicion de tamano de los titulos
+\titleformat*{\section}{\LARGE\bfseries}
+\titleformat*{\subsection}{\Large\bfseries}
+\titleformat*{\subsubsection}{\large\bfseries}
+\titleformat*{\paragraph}{\normalsize\bfseries}
+
+% Definir el pagestyle estandar
+\fancypagestyle{main}{%
+	\fancyhf{}
+	\fancyhead[R]{\leftmark}
+	\fancyfoot[L]{COCCA, Lisandro; ROLLE, Guillermo}
+	\fancyfoot[R]{\thepage\ de \pageref{LastPage}}
+	\renewcommand{\headrulewidth}{0.4pt}
+	\renewcommand{\footrulewidth}{0.4pt}
+}
+
+% Redefine chapter by adding fancy as the chapter title page page-style
+\makeatletter
+\let\stdchapter\chapter
+\renewcommand*\chapter{%
+	\@ifstar{\starchapter}{\@dblarg\nostarchapter}}
+\newcommand*\starchapter[1]{%
+	\stdchapter*{#1}
+	\thispagestyle{empty}					% Afecta solo a la tabla de contenidos
+	\markboth{\MakeUppercase{#1}}{}
+}
+\def\nostarchapter[#1]#2{%
+	\stdchapter[{#1}]{#2}
+	\thispagestyle{main}					% Paginas que arrancan un capitulo
+}
+\makeatother
+
+
+%  Paquete 'todonotes' para notas de pendientes en el texto. Para eliminarlas agregar 'disable' en el header, como en las notas \thiswillnotshow (ver última en la lista)
+\usepackage{lipsum}                     % Dummytext
+\usepackage{xargs}                      % Use more than one optional parameter in a new commands
+%\usepackage[pdftex,dvipsnames]{xcolor}  % Coloured text etc.
+\usepackage[colorinlistoftodos,prependcaption,textsize=small]{todonotes}
+\newcommandx{\unsure}[2][1=]{\todo[linecolor=red,backgroundcolor=red!25,bordercolor=red,#1]{#2}}
+\newcommandx{\change}[2][1=]{\todo[linecolor=blue,backgroundcolor=blue!25,bordercolor=blue,#1]{#2}}
+\newcommandx{\info}[2][1=]{\todo[linecolor=orange,backgroundcolor=orange!25,bordercolor=orange,#1]{#2}}
+\newcommandx{\improvement}[2][1=]{\todo[linecolor=green,backgroundcolor=green!25,bordercolor=green,#1]{#2}}
+\newcommandx{\thiswillnotshow}[2][1=]{\todo[disable,#1]{#2}}
+%
+
+
+
+
