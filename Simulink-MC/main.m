@@ -12,9 +12,6 @@ Global_Data.mode = "manul";
 Global_Data.step_size = 0.001;
 
 %% Creacion del mapa
-% Por el momento se corre esta linea para evitar problemas con los spline
-[xref, dxref, ddxref, waypoints] = Trajectory();
-
 % Creacion de un mapa utilizando splines
 Map_Data = create_map(Global_Data);
 
@@ -23,7 +20,7 @@ Map_Data = create_map(Global_Data);
 run config_parameters
 
 % Selección del caso de simulación
-Global_Data.case = 'Case_I';
+Global_Data.case = 'Case_III';
 
 % Bandera para detectar errores
 Global_Data.flag = true;
@@ -63,8 +60,8 @@ try
 end
 
 %% Final del programa
-if Global_Data.flag
-    myicon = imread('smiley.jpg');
-    uiwait(msgbox('Program Completed!','Success','custom',myicon));
-    winopen([pwd,'\Graficas\',Global_Data.case])
-end
+% if Global_Data.flag
+%     myicon = imread('smiley.jpg');
+%     uiwait(msgbox('Program Completed!','Success','custom',myicon));
+%     winopen([pwd,'\Graficas\',Global_Data.case])
+% end

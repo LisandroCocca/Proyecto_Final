@@ -23,6 +23,7 @@ y = table2array(readtable(map_path));
 y(:, [1 3]) = y(:, [3 1]);
 y(:, [2 3]) = y(:, [3 2]);
 
+
 %% Ajuste con splines
 % Refinamiento del time vector
 t_vector = y(1,1):Global_Data.step_size:y(end,1);
