@@ -8,7 +8,7 @@ Model_Data = model_config();
 %% Configuración de la variable de datos globales
 % El modo manual se creo para testear sin hacerle preguntas al usuario
 Global_Data = {};
-Global_Data.mode = "manual";
+Global_Data.mode = "manul";
 Global_Data.step_size = 0.001;
 
 %% Creacion del mapa
@@ -23,7 +23,7 @@ Map_Data = create_map(Global_Data);
 run config_parameters
 
 % Selección del caso de simulación
-Global_Data.case = 'Case_VI';
+Global_Data.case = 'Case_I';
 
 % Bandera para detectar errores
 Global_Data.flag = true;
