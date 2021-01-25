@@ -7,6 +7,9 @@ hold on
 plot (Car_Data.Case_V.XY_2(:,1),Car_Data.Case_V.XY_2(:,2),'Color',color);
 grid on
 
+dim = [.17 .69 .24 .2];
+str = sprintf("Position Error Metrics \nISE: %.1f \nIAE: %.1f \nITAE: %.1f \nITSE: %.1f",Error_Data.Case_V.tot_ISE,Error_Data.Case_V.tot_IAE,Error_Data.Case_V.tot_ITAE, Error_Data.Case_V.tot_ITSE);
+annotation('textbox',dim,'String',str,'FitBoxToText','on','FontSize',12);
 legend("RearD","RearV")
 ylabel ('Y (m)','FontSize',12)
 xlabel ('X (m)','FontSize',12);
@@ -38,6 +41,9 @@ color = [0 77 0]/255;
 plot(Ref_Data.tout,Error_Data.Case_V.XY(:,1),'Color',color,'LineStyle',':','LineWidth',1.5);
 grid on
 
+dim = [.77 .69 .24 .2];
+str = sprintf("ISE: %.1f \nIAE: %.1f \nITAE: %.1f \nITSE: %.1f",Error_Data.Case_V.ISE(1),Error_Data.Case_V.IAE(1),Error_Data.Case_V.ITAE(1), Error_Data.Case_V.ITSE(1));
+annotation('textbox',dim,'String',str,'FitBoxToText','on','FontSize',12);
 ylabel ('Error (m)','FontSize',12)
 xlabel ('Time (s)','FontSize',12);
 title ("Position Error - X",'FontSize',12)
@@ -67,6 +73,8 @@ color = [0 0 255]/255;
 plot(Ref_Data.tout,Error_Data.Case_V.XY(:,2),'Color',color,'LineStyle',':','LineWidth',1.5);
 grid on
 
+str = sprintf("ISE: %.1f \nIAE: %.1f \nITAE: %.1f \nITSE: %.1f",Error_Data.Case_V.ISE(2),Error_Data.Case_V.IAE(2),Error_Data.Case_V.ITAE(2), Error_Data.Case_V.ITSE(2));
+annotation('textbox',dim,'String',str,'FitBoxToText','on','FontSize',12);
 ylabel ('Error (m)','FontSize',12)
 xlabel ('Time (s)','FontSize',12);
 title ("Position Error - Y",'FontSize',12)
@@ -96,6 +104,8 @@ color = [179 107 0]/255;
 plot(Ref_Data.tout,Error_Data.Case_V.V(:,1),'Color',color,'LineStyle',':','LineWidth',1.5);
 grid on
 
+str = sprintf("ISE: %.1f \nIAE: %.1f \nITAE: %.1f \nITSE: %.1f",Error_Data.Case_V.V_ISE,Error_Data.Case_V.V_IAE,Error_Data.Case_V.V_ITAE, Error_Data.Case_V.V_ITSE);
+annotation('textbox',dim,'String',str,'FitBoxToText','on','FontSize',12);
 ylabel ('Error (m / s)','FontSize',12)
 xlabel ('Time (s)','FontSize',12);
 title ("Speed Error",'FontSize',12)
@@ -149,7 +159,7 @@ ylabel ('Tire Forces (N)','FontSize',12)
 xlabel ('Time (s)','FontSize',12);
 title ("Front-Left Rolling Forces",'FontSize',12)
 
-saveas(FigIII,[Plot_Data.figure_path_mp,'Neums_F1_Left_',Map_Data.map_name],'png');
+saveas(FigIII,[Plot_Data.figure_path_unique,'Neums_F1_Left_',Map_Data.map_name],'png');
 
 % Velocidades Front-Left
 FigIII = figure ('Units','normalized','OuterPosition',Plot_Data.Blockfig);
@@ -169,7 +179,7 @@ ylabel ('Speed (m / s)','FontSize',12)
 xlabel ('Time (s)','FontSize',12);
 title ("Front-Left Tire Speeds",'FontSize',12)
 
-saveas(FigIII,[Plot_Data.figure_path_mp,'Neums_V1_Left_',Map_Data.map_name],'png');
+saveas(FigIII,[Plot_Data.figure_path_unique,'Neums_V1_Left_',Map_Data.map_name],'png');
 
 % Slips Front
 FigIII = figure ('Units','normalized','OuterPosition',Plot_Data.Blockfig);
@@ -186,7 +196,7 @@ ylabel ('Slips','FontSize',12)
 xlabel ('Time (s)','FontSize',12);
 title ("Front Slip Values",'FontSize',12)
 
-saveas(FigIII,[Plot_Data.figure_path_mp,'Neums_Slips1_',Map_Data.map_name],'png');
+saveas(FigIII,[Plot_Data.figure_path_unique,'Neums_Slips1_',Map_Data.map_name],'png');
 
 %% Fila 2
 % Fuerzas Front-Right
@@ -207,7 +217,7 @@ ylabel ('Tire Forces (N)','FontSize',12)
 xlabel ('Time (s)','FontSize',12);
 title ("Front-Right Rolling Forces",'FontSize',12)
 
-saveas(FigIII,[Plot_Data.figure_path_mp,'Neums_F1_Right_',Map_Data.map_name],'png');
+saveas(FigIII,[Plot_Data.figure_path_unique,'Neums_F1_Right_',Map_Data.map_name],'png');
 
 % Velocidades longitudinales Front-Right
 FigIII = figure ('Units','normalized','OuterPosition',Plot_Data.Blockfig);
@@ -227,7 +237,7 @@ ylabel ('Speed (m / s)','FontSize',12)
 xlabel ('Time (s)','FontSize',12);
 title ("Front-Right Tire Speeds",'FontSize',12)
 
-saveas(FigIII,[Plot_Data.figure_path_mp,'Neums_V1_Right_',Map_Data.map_name],'png');
+saveas(FigIII,[Plot_Data.figure_path_unique,'Neums_V1_Right_',Map_Data.map_name],'png');
 
 % Alphas Front
 FigIII = figure ('Units','normalized','OuterPosition',Plot_Data.Blockfig);
@@ -244,7 +254,7 @@ ylabel ('Alphas','FontSize',12)
 xlabel ('Time (s)','FontSize',12);
 title ("Front Alpha Coefficients",'FontSize',12)
 
-saveas(FigIII,[Plot_Data.figure_path_mp,'Neums_Alphas1',Map_Data.map_name],'png');
+saveas(FigIII,[Plot_Data.figure_path_unique,'Neums_Alphas1',Map_Data.map_name],'png');
 
 %% Plots Rear Neums
 % Fila 1
@@ -266,7 +276,7 @@ ylabel ('Tire Forces (N)','FontSize',12)
 xlabel ('Time (s)','FontSize',12);
 title ("Rear-Left Rolling Forces",'FontSize',12)
 
-saveas(FigIV,[Plot_Data.figure_path_mp,'Neums_F2_Left',Map_Data.map_name],'png');
+saveas(FigIV,[Plot_Data.figure_path_unique,'Neums_F2_Left',Map_Data.map_name],'png');
 
 % Velocidades Rear-Left
 FigIV = figure ('Units','normalized','OuterPosition',Plot_Data.Blockfig);
@@ -286,7 +296,7 @@ ylabel ('Speed (m / s)','FontSize',12)
 xlabel ('Time (s)','FontSize',12);
 title ("Rear-Left Tire Speeds",'FontSize',12)
 
-saveas(FigIV,[Plot_Data.figure_path_mp,'Neums_V2_Left',Map_Data.map_name],'png');
+saveas(FigIV,[Plot_Data.figure_path_unique,'Neums_V2_Left',Map_Data.map_name],'png');
 
 % Slips Rear
 FigIV = figure ('Units','normalized','OuterPosition',Plot_Data.Blockfig);
@@ -303,7 +313,7 @@ ylabel ('Slips','FontSize',12)
 xlabel ('Time (s)','FontSize',12);
 title ("Rear Slip Values",'FontSize',12)
 
-saveas(FigIV,[Plot_Data.figure_path_mp,'Neums_Slips2',Map_Data.map_name],'png');
+saveas(FigIV,[Plot_Data.figure_path_unique,'Neums_Slips2',Map_Data.map_name],'png');
 
 %% Fila 2
 % Fuerzas Rear-Right
@@ -324,7 +334,7 @@ ylabel ('Tire Forces (N)','FontSize',12)
 xlabel ('Time (s)','FontSize',12);
 title ("Rear-Right Rolling Forces",'FontSize',12)
 
-saveas(FigIV,[Plot_Data.figure_path_mp,'Neums_F2_Right',Map_Data.map_name],'png');
+saveas(FigIV,[Plot_Data.figure_path_unique,'Neums_F2_Right',Map_Data.map_name],'png');
 
 % Velocidades longitudinales Rear-Right
 FigIV = figure ('Units','normalized','OuterPosition',Plot_Data.Blockfig);
@@ -344,7 +354,7 @@ ylabel ('Speed (m / s)','FontSize',12)
 xlabel ('Time (s)','FontSize',12);
 title ("Rear-Right Tire Speeds",'FontSize',12)
 
-saveas(FigIV,[Plot_Data.figure_path_mp,'Neums_V2_Right',Map_Data.map_name],'png');
+saveas(FigIV,[Plot_Data.figure_path_unique,'Neums_V2_Right',Map_Data.map_name],'png');
 
 % Alphas Rear-Right
 FigIV = figure ('Units','normalized','OuterPosition',Plot_Data.Blockfig);
@@ -361,7 +371,7 @@ ylabel ('Alphas','FontSize',12)
 xlabel ('Time (s)','FontSize',12);
 title ("Rear Alpha Coefficients",'FontSize',12)
 
-saveas(FigIV,[Plot_Data.figure_path_mp,'Neums_Alphas2',Map_Data.map_name],'png');
+saveas(FigIV,[Plot_Data.figure_path_unique,'Neums_Alphas2',Map_Data.map_name],'png');
 close all
 
 

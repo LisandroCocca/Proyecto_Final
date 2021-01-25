@@ -41,6 +41,8 @@ switch Plot_Data.plot_config
                 UnP_Case_IV(Car_Data, Control_Data, Error_Data, Global_Data, Map_Data, Model_Data, Plot_Data, Ref_Data, Neum_Data)
             case "Case_V"
                 UnP_Case_V(Car_Data, Control_Data, Error_Data, Global_Data, Map_Data, Model_Data, Plot_Data, Ref_Data, Neum_Data)
+            case "Case_VI"
+                UnP_Case_VI(Car_Data, Control_Data, Error_Data, Global_Data, Map_Data, Model_Data, Plot_Data, Ref_Data, Neum_Data)  
             otherwise
                 fprintf('No se conoce la rutina de ploteo Save_Only: %s\n',Global_Data.case)
         end

@@ -20,7 +20,7 @@ Map_Data = create_map(Global_Data);
 run config_parameters
 
 % Selección del caso de simulación
-Global_Data.case = 'Case_III';
+Global_Data.case = 'Case_VI';
 
 % Bandera para detectar errores
 Global_Data.flag = true;
@@ -49,19 +49,19 @@ run config_plots
 % - Multiplot: Se arman multiples subplot y se muestran en pantalla
 % - Save_Only: Se arman solo gráficas individuales y se guardan
 % directamente
-%Plot_Data.plot_config = "Save_Only";
-Plot_Data.plot_config = "Multiplot";
+Plot_Data.plot_config = "Save_Only";
+% Plot_Data.plot_config = "Multiplot";
 
 try
     plot_routine(Car_Data, Control_Data, Error_Data, Global_Data, Map_Data, Model_Data, Neum_Data, Plot_Data, Ref_Data);
-% catch
-%     Global_Data.flag = false;
-%     uiwait(errordlg("Error en la rutina de plots"))
+catch
+    Global_Data.flag = false;
+    uiwait(errordlg("Error en la rutina de plots"))
 end
 
 %% Final del programa
-% if Global_Data.flag
-%     myicon = imread('smiley.jpg');
-%     uiwait(msgbox('Program Completed!','Success','custom',myicon));
+if Global_Data.flag
+    myicon = imread('smiley.jpg');
+    uiwait(msgbox('Program Completed!','Success','custom',myicon));
 %     winopen([pwd,'\Graficas\',Global_Data.case])
-% end
+end

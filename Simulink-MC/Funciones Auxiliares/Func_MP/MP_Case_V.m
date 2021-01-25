@@ -7,6 +7,9 @@ hold on
 plot (Car_Data.Case_V.XY_2(:,1),Car_Data.Case_V.XY_2(:,2),'Color',color);
 grid on
 
+dim = [.175 .69 .24 .2];
+str = sprintf("Position Error Metrics \nISE: %.1f \nIAE: %.1f \nITAE: %.1f \nITSE: %.1f",Error_Data.Case_V.tot_ISE,Error_Data.Case_V.tot_IAE,Error_Data.Case_V.tot_ITAE, Error_Data.Case_V.tot_ITSE);
+annotation('textbox',dim,'String',str,'FitBoxToText','on','FontSize',12);
 legend("RearD","RearV")
 ylabel ('Y (m)','FontSize',12)
 xlabel ('X (m)','FontSize',12);
@@ -36,6 +39,9 @@ color = [0 77 0]/255;
 plot(Ref_Data.tout,Error_Data.Case_V.XY(:,1),'Color',color,'LineStyle',':','LineWidth',1.5);
 grid on
 
+dim = [.135 .22 .2 .2];
+str = sprintf("ISE: %.1f \nIAE: %.1f \nITAE: %.1f \nITSE: %.1f",Error_Data.Case_V.ISE(1),Error_Data.Case_V.IAE(1),Error_Data.Case_V.ITAE(1), Error_Data.Case_V.ITSE(1));
+annotation('textbox',dim,'String',str,'FitBoxToText','on','FontSize',6);
 ylabel ('Error (m)','FontSize',12)
 xlabel ('Time (s)','FontSize',12);
 title ("Position Error - X",'FontSize',12)
@@ -59,6 +65,9 @@ color = [0 0 255]/255;
 plot(Ref_Data.tout,Error_Data.Case_V.XY(:,2),'Color',color,'LineStyle',':','LineWidth',1.5);
 grid on
 
+dim = [.34 .22 .2 .2];
+str = sprintf("ISE: %.1f \nIAE: %.1f \nITAE: %.1f \nITSE: %.1f",Error_Data.Case_V.ISE(2),Error_Data.Case_V.IAE(2),Error_Data.Case_V.ITAE(2), Error_Data.Case_V.ITSE(2));
+annotation('textbox',dim,'String',str,'FitBoxToText','on','FontSize',6);
 ylabel ('Error (m)','FontSize',12)
 xlabel ('Time (s)','FontSize',12);
 title ("Position Error - Y",'FontSize',12)
@@ -82,6 +91,9 @@ color = [179 107 0]/255;
 plot(Ref_Data.tout,Error_Data.Case_V.V(:,1),'Color',color,'LineStyle',':','LineWidth',1.5);
 grid on
 
+dim = [.545 .22 .2 .2];
+str = sprintf("ISE: %.1f \nIAE: %.1f \nITAE: %.1f \nITSE: %.1f",Error_Data.Case_V.V_ISE,Error_Data.Case_V.V_IAE,Error_Data.Case_V.V_ITAE, Error_Data.Case_V.V_ITSE);
+annotation('textbox',dim,'String',str,'FitBoxToText','on','FontSize',6);
 ylabel ('Error (m / s)','FontSize',12)
 xlabel ('Time (s)','FontSize',12);
 title ("Speed Error",'FontSize',12)

@@ -4,13 +4,16 @@ FigI = figure ('Units','normalized','OuterPosition',Plot_Data.Blockfig);
 color = [0 77 0]/255;
 plot (Ref_Data.XY(:,1),Ref_Data.XY(:,2),'Color',color,'LineStyle','--');
 hold on
-plot (Car_Data.Case_I.XY_2(:,1),Car_Data.Case_I.XY_2(:,2),'Color',color);
+plot (Car_Data.Case_III.XY_2(:,1),Car_Data.Case_III.XY_2(:,2),'Color',color);
 grid on
 
+dim = [.17 .69 .24 .2];
+str = sprintf("Position Error Metrics \nISE: %.1f \nIAE: %.1f \nITAE: %.1f \nITSE: %.1f",Error_Data.Case_III.tot_ISE,Error_Data.Case_III.tot_IAE,Error_Data.Case_III.tot_ITAE, Error_Data.Case_III.tot_ITSE);
+annotation('textbox',dim,'String',str,'FitBoxToText','on','FontSize',12);
 legend("RearD","RearV")
 ylabel ('Y (m)','FontSize',12)
 xlabel ('X (m)','FontSize',12);
-title (['Case II - Modelos: ',Model_Data.Case_II.model_alias,' - Map: ',Map_Data.map_name],'FontSize',16)
+title (['Case III - Modelos: ',Model_Data.Case_III.model_alias,' - Map: ',Map_Data.map_name],'FontSize',16)
 axis equal;
 
 saveas(FigI,[Plot_Data.figure_path_unique,'Mapa_',Map_Data.map_name],'png');
@@ -38,6 +41,9 @@ color = [0 77 0]/255;
 plot(Ref_Data.tout,Error_Data.Case_III.XY(:,1),'Color',color,'LineStyle',':','LineWidth',1.5);
 grid on
 
+dim = [.77 .69 .24 .2];
+str = sprintf("ISE: %.1f \nIAE: %.1f \nITAE: %.1f \nITSE: %.1f",Error_Data.Case_III.ISE(1),Error_Data.Case_III.IAE(1),Error_Data.Case_III.ITAE(1), Error_Data.Case_III.ITSE(1));
+annotation('textbox',dim,'String',str,'FitBoxToText','on','FontSize',12);
 ylabel ('Error (m)','FontSize',12)
 xlabel ('Time (s)','FontSize',12);
 title ("Position Error - X",'FontSize',12)
@@ -67,6 +73,8 @@ color = [0 0 255]/255;
 plot(Ref_Data.tout,Error_Data.Case_III.XY(:,2),'Color',color,'LineStyle',':','LineWidth',1.5);
 grid on
 
+str = sprintf("ISE: %.1f \nIAE: %.1f \nITAE: %.1f \nITSE: %.1f",Error_Data.Case_III.ISE(2),Error_Data.Case_III.IAE(2),Error_Data.Case_III.ITAE(2), Error_Data.Case_III.ITSE(2));
+annotation('textbox',dim,'String',str,'FitBoxToText','on','FontSize',12);
 ylabel ('Error (m)','FontSize',12)
 xlabel ('Time (s)','FontSize',12);
 title ("Position Error - Y",'FontSize',12)
@@ -96,6 +104,8 @@ color = [179 107 0]/255;
 plot(Ref_Data.tout,Error_Data.Case_III.V(:,1),'Color',color,'LineStyle',':','LineWidth',1.5);
 grid on
 
+str = sprintf("ISE: %.1f \nIAE: %.1f \nITAE: %.1f \nITSE: %.1f",Error_Data.Case_III.V_ISE,Error_Data.Case_III.V_IAE,Error_Data.Case_III.V_ITAE, Error_Data.Case_III.V_ITSE);
+annotation('textbox',dim,'String',str,'FitBoxToText','on','FontSize',12);
 ylabel ('Error (m / s)','FontSize',12)
 xlabel ('Time (s)','FontSize',12);
 title ("Speed Error",'FontSize',12)

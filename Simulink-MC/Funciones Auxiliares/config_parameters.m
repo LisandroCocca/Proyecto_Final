@@ -22,7 +22,7 @@ Auto.b_sus = 10;
 Neum.Rg = 0.06;
 Neum.Jw = 0.00018;
 
-Neum.sc = 0.5;
+Neum.sc = 0.75;
 Neum.Calfa = 5;
 Neum.muy = 1;
 Neum.mu_s = 1;

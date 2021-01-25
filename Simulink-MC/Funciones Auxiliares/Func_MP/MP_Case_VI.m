@@ -1,4 +1,4 @@
-function [] = MP_Case_IV(Car_Data, Control_Data, Error_Data, ~ , Map_Data, Model_Data, Plot_Data, Ref_Data, Neum_Data)
+function [] = MP_Case_VI(Car_Data, Control_Data, Error_Data, ~ , Map_Data, Model_Data, Plot_Data, Ref_Data, Neum_Data)
 % Plot XY
 FigI = figure ('Units','normalized','OuterPosition',Plot_Data.Blockfig);
 color = [0 77 0]/255;
@@ -7,10 +7,13 @@ hold on
 plot (Car_Data.Case_VI.XY_2(:,1),Car_Data.Case_VI.XY_2(:,2),'Color',color);
 grid on
 
+dim = [.175 .69 .24 .2];
+str = sprintf("Position Error Metrics \nISE: %.1f \nIAE: %.1f \nITAE: %.1f \nITSE: %.1f",Error_Data.Case_VI.tot_ISE,Error_Data.Case_VI.tot_IAE,Error_Data.Case_VI.tot_ITAE, Error_Data.Case_VI.tot_ITSE);
+annotation('textbox',dim,'String',str,'FitBoxToText','on','FontSize',12);
 legend("RearD","RearV")
 ylabel ('Y (m)','FontSize',12)
 xlabel ('X (m)','FontSize',12);
-title (['Case IV - Modelos: ',Model_Data.Case_VI.model_alias,' - Map: ',Map_Data.map_name],'FontSize',16)
+title (['Case VI - Modelos: ',Model_Data.Case_VI.model_alias,' - Map: ',Map_Data.map_name],'FontSize',16)
 axis equal;
 saveas(FigI,[Plot_Data.figure_path_mp,'Mapa_',Map_Data.map_name],'png');
 
@@ -36,6 +39,9 @@ color = [0 77 0]/255;
 plot(Ref_Data.tout,Error_Data.Case_VI.XY(:,1),'Color',color,'LineStyle',':','LineWidth',1.5);
 grid on
 
+dim = [.135 .22 .2 .2];
+str = sprintf("ISE: %.1f \nIAE: %.1f \nITAE: %.1f \nITSE: %.1f",Error_Data.Case_VI.ISE(1),Error_Data.Case_VI.IAE(1),Error_Data.Case_VI.ITAE(1), Error_Data.Case_VI.ITSE(1));
+annotation('textbox',dim,'String',str,'FitBoxToText','on','FontSize',6);
 ylabel ('Error (m)','FontSize',12)
 xlabel ('Time (s)','FontSize',12);
 title ("Position Error - X",'FontSize',12)
@@ -59,6 +65,9 @@ color = [0 0 255]/255;
 plot(Ref_Data.tout,Error_Data.Case_VI.XY(:,2),'Color',color,'LineStyle',':','LineWidth',1.5);
 grid on
 
+dim = [.34 .22 .2 .2];
+str = sprintf("ISE: %.1f \nIAE: %.1f \nITAE: %.1f \nITSE: %.1f",Error_Data.Case_VI.ISE(2),Error_Data.Case_VI.IAE(2),Error_Data.Case_VI.ITAE(2), Error_Data.Case_VI.ITSE(2));
+annotation('textbox',dim,'String',str,'FitBoxToText','on','FontSize',6);
 ylabel ('Error (m)','FontSize',12)
 xlabel ('Time (s)','FontSize',12);
 title ("Position Error - Y",'FontSize',12)
@@ -82,6 +91,9 @@ color = [179 107 0]/255;
 plot(Ref_Data.tout,Error_Data.Case_VI.V(:,1),'Color',color,'LineStyle',':','LineWidth',1.5);
 grid on
 
+dim = [.545 .22 .2 .2];
+str = sprintf("ISE: %.1f \nIAE: %.1f \nITAE: %.1f \nITSE: %.1f",Error_Data.Case_VI.V_ISE,Error_Data.Case_VI.V_IAE,Error_Data.Case_VI.V_ITAE, Error_Data.Case_VI.V_ITSE);
+annotation('textbox',dim,'String',str,'FitBoxToText','on','FontSize',6);
 ylabel ('Error (m / s)','FontSize',12)
 xlabel ('Time (s)','FontSize',12);
 title ("Speed Error",'FontSize',12)
@@ -106,7 +118,7 @@ ylabel ('Delta (°)','FontSize',12)
 xlabel ('Time (s)','FontSize',12);
 title ("Steering Angle",'FontSize',12)
 
-suptitle (['Case IV - Modelos: ',Model_Data.Case_VI.model_alias,' - Map: ',Map_Data.map_name])
+suptitle (['Case VI - Modelos: ',Model_Data.Case_VI.model_alias,' - Map: ',Map_Data.map_name])
 saveas(FigII,[Plot_Data.figure_path_mp,'Multiplot_',Map_Data.map_name],'png');
 
 %% Plot Neumáticos 
@@ -217,18 +229,36 @@ ylabel ('Alpha','FontSize',12)
 xlabel ('Time (s)','FontSize',12);
 title ("Alpha Coefficient",'FontSize',12)
 
-suptitle (['Case IV - Tire Variables - Map: ',Map_Data.map_name])
+suptitle (['Case VI - Tire Variables - Map: ',Map_Data.map_name])
 saveas(FigIII,[Plot_Data.figure_path_mp,'Neum_',Map_Data.map_name],'png');
 
 %% Nueva Data
 FigIV = figure ('Units','normalized','OuterPosition',Plot_Data.Blockfig);
+color = [[102, 0, 204];
+         [204, 51, 153];
+         [0,  255, 0]];
 
+color = color ./ 255;
 subplot(3,1,1)
-plot(Ref_Data.tout, Car_Data.Case_VI.PSI_CM * 180/pi());
+plot(Ref_Data.tout, Car_Data.Case_VI.PSI_CM * 180/pi(),'Color',color(1,:) );
+grid on
+xlabel ('Time (s)','FontSize',12);
+ylabel ('Pitch Angle(CM)','FontSize',12)
 
 subplot(3,1,2)
-plot(Ref_Data.tout, Car_Data.Case_VI.Z_CM);
+plot(Ref_Data.tout, Car_Data.Case_VI.Z_CM, 'Color',color(2,:));
+grid on
+ylabel ('Z_{CM}','FontSize',12)
+xlabel ('Time (s)','FontSize',12);
 
 subplot(3,1,3)
-plot(Ref_Data.tout, Car_Data.Case_VI.omega_psi);
+plot(Ref_Data.tout, Car_Data.Case_VI.omega_psi, 'Color',color(3,:));
+grid on
+xlabel ('Time (s)','FontSize',12);
+ylabel ('\omega_{psi}','FontSize',12)
+
+suptitle (['Case VI - Pitch Variables - Map: ',Map_Data.map_name]);
+saveas(FigIV,[Plot_Data.figure_path_mp,'Pitch_',Map_Data.map_name],'png');
+
+
 

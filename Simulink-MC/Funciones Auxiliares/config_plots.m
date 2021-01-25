@@ -17,7 +17,23 @@ switch Global_Data.case
         Car_Data.Case_I.V_2_2= vx_2;
         
         Error_Data.Case_I.XY = Ref_Data.XY(:,1:2) - Car_Data.Case_I.XY_2;
+        Error_Data.Case_I.modXY = vecnorm(Error_Data.Case_I.XY')';
+        
+        Error_Data.Case_I.tot_ISE = sum((Error_Data.Case_I.modXY(2:end).^2).*diff(tout));
+        Error_Data.Case_I.tot_IAE = sum(abs(Error_Data.Case_I.modXY(2:end)).*diff(tout));
+        Error_Data.Case_I.tot_ITAE = sum(abs(Error_Data.Case_I.modXY(2:end)).*diff(tout).*tout(2:end));
+        Error_Data.Case_I.tot_ITSE = sum((Error_Data.Case_I.modXY(2:end).^2).*diff(tout).*tout(2:end));
+        
+        Error_Data.Case_I.ISE = sum((Error_Data.Case_I.XY(2:end,:).^2).*diff(tout));
+        Error_Data.Case_I.IAE = sum(abs(Error_Data.Case_I.XY(2:end,:)).*diff(tout));
+        Error_Data.Case_I.ITAE = sum(abs(Error_Data.Case_I.XY(2:end,:)).*diff(tout).*tout(2:end));
+        Error_Data.Case_I.ITSE = sum((Error_Data.Case_I.XY(2:end,:).^2).*diff(tout).*tout(2:end));
+        
         Error_Data.Case_I.V = Ref_Data.V(:,3) - Car_Data.Case_I.V_2_2(:,1);
+        Error_Data.Case_I.V_ISE = sum((Error_Data.Case_I.V(2:end).^2).*diff(tout));
+        Error_Data.Case_I.V_IAE = sum(abs(Error_Data.Case_I.V(2:end)).*diff(tout));
+        Error_Data.Case_I.V_ITAE = sum(abs(Error_Data.Case_I.V(2:end)).*diff(tout).*tout(2:end));
+        Error_Data.Case_I.V_ITSE = sum((Error_Data.Case_I.V(2:end).^2).*diff(tout).*tout(2:end));
         
     case "Case_II"
         Neum_Data = {};
@@ -32,7 +48,23 @@ switch Global_Data.case
         Car_Data.Case_II.V_2_2= vx_2;
         
         Error_Data.Case_II.XY = Ref_Data.XY(:,1:2) - Car_Data.Case_II.XY_2;
+        Error_Data.Case_II.modXY = vecnorm(Error_Data.Case_II.XY')';
+        
+        Error_Data.Case_II.tot_ISE = sum((Error_Data.Case_II.modXY(2:end).^2).*diff(tout));
+        Error_Data.Case_II.tot_IAE = sum(abs(Error_Data.Case_II.modXY(2:end)).*diff(tout));
+        Error_Data.Case_II.tot_ITAE = sum(abs(Error_Data.Case_II.modXY(2:end)).*diff(tout).*tout(2:end));
+        Error_Data.Case_II.tot_ITSE = sum((Error_Data.Case_II.modXY(2:end).^2).*diff(tout).*tout(2:end));
+        
+        Error_Data.Case_II.ISE = sum((Error_Data.Case_II.XY(2:end,:).^2).*diff(tout));
+        Error_Data.Case_II.IAE = sum(abs(Error_Data.Case_II.XY(2:end,:)).*diff(tout));
+        Error_Data.Case_II.ITAE = sum(abs(Error_Data.Case_II.XY(2:end,:)).*diff(tout).*tout(2:end));
+        Error_Data.Case_II.ITSE = sum((Error_Data.Case_II.XY(2:end,:).^2).*diff(tout).*tout(2:end));
+        
         Error_Data.Case_II.V = Ref_Data.V(:,3) - Car_Data.Case_II.V_2_2(:,1);
+        Error_Data.Case_II.V_ISE = sum((Error_Data.Case_II.V(2:end).^2).*diff(tout));
+        Error_Data.Case_II.V_IAE = sum(abs(Error_Data.Case_II.V(2:end)).*diff(tout));
+        Error_Data.Case_II.V_ITAE = sum(abs(Error_Data.Case_II.V(2:end)).*diff(tout).*tout(2:end));
+        Error_Data.Case_II.V_ITSE = sum((Error_Data.Case_II.V(2:end).^2).*diff(tout).*tout(2:end));
         
     case "Case_III"
         Neum_Data.Case_III.V1 = Info_N1(:,1:2);
@@ -58,7 +90,23 @@ switch Global_Data.case
         Car_Data.Case_III.Theta = theta;
         
         Error_Data.Case_III.XY = Ref_Data.XY(:,1:2) - Car_Data.Case_III.XY_2;
+        Error_Data.Case_III.modXY = vecnorm(Error_Data.Case_III.XY')';
+        
+        Error_Data.Case_III.tot_ISE = sum((Error_Data.Case_III.modXY(2:end).^2).*diff(tout));
+        Error_Data.Case_III.tot_IAE = sum(abs(Error_Data.Case_III.modXY(2:end)).*diff(tout));
+        Error_Data.Case_III.tot_ITAE = sum(abs(Error_Data.Case_III.modXY(2:end)).*diff(tout).*tout(2:end));
+        Error_Data.Case_III.tot_ITSE = sum((Error_Data.Case_III.modXY(2:end).^2).*diff(tout).*tout(2:end));
+        
+        Error_Data.Case_III.ISE = sum((Error_Data.Case_III.XY(2:end,:).^2).*diff(tout));
+        Error_Data.Case_III.IAE = sum(abs(Error_Data.Case_III.XY(2:end,:)).*diff(tout));
+        Error_Data.Case_III.ITAE = sum(abs(Error_Data.Case_III.XY(2:end,:)).*diff(tout).*tout(2:end));
+        Error_Data.Case_III.ITSE = sum((Error_Data.Case_III.XY(2:end,:).^2).*diff(tout).*tout(2:end));
+        
         Error_Data.Case_III.V = Ref_Data.V(:,3) - Neum_Data.Case_III.V2(:,1);
+        Error_Data.Case_III.V_ISE = sum((Error_Data.Case_III.V(2:end).^2).*diff(tout));
+        Error_Data.Case_III.V_IAE = sum(abs(Error_Data.Case_III.V(2:end)).*diff(tout));
+        Error_Data.Case_III.V_ITAE = sum(abs(Error_Data.Case_III.V(2:end)).*diff(tout).*tout(2:end));
+        Error_Data.Case_III.V_ITSE = sum((Error_Data.Case_III.V(2:end).^2).*diff(tout).*tout(2:end));
         
     case "Case_IV"
         Neum_Data.Case_IV.V1 = Info_N1(:,1:2);
@@ -91,7 +139,23 @@ switch Global_Data.case
         Car_Data.Case_IV.Theta = theta;
         
         Error_Data.Case_IV.XY = Ref_Data.XY(:,1:2) - Car_Data.Case_IV.XY_2;
+        Error_Data.Case_IV.modXY = vecnorm(Error_Data.Case_IV.XY')';
+        
+        Error_Data.Case_IV.tot_ISE = sum((Error_Data.Case_IV.modXY(2:end).^2).*diff(tout));
+        Error_Data.Case_IV.tot_IAE = sum(abs(Error_Data.Case_IV.modXY(2:end)).*diff(tout));
+        Error_Data.Case_IV.tot_ITAE = sum(abs(Error_Data.Case_IV.modXY(2:end)).*diff(tout).*tout(2:end));
+        Error_Data.Case_IV.tot_ITSE = sum((Error_Data.Case_IV.modXY(2:end).^2).*diff(tout).*tout(2:end));
+        
+        Error_Data.Case_IV.ISE = sum((Error_Data.Case_IV.XY(2:end,:).^2).*diff(tout));
+        Error_Data.Case_IV.IAE = sum(abs(Error_Data.Case_IV.XY(2:end,:)).*diff(tout));
+        Error_Data.Case_IV.ITAE = sum(abs(Error_Data.Case_IV.XY(2:end,:)).*diff(tout).*tout(2:end));
+        Error_Data.Case_IV.ITSE = sum((Error_Data.Case_IV.XY(2:end,:).^2).*diff(tout).*tout(2:end));
+        
         Error_Data.Case_IV.V = Ref_Data.V(:,3) - Neum_Data.Case_IV.V2(:,1);
+        Error_Data.Case_IV.V_ISE = sum((Error_Data.Case_IV.V(2:end).^2).*diff(tout));
+        Error_Data.Case_IV.V_IAE = sum(abs(Error_Data.Case_IV.V(2:end)).*diff(tout));
+        Error_Data.Case_IV.V_ITAE = sum(abs(Error_Data.Case_IV.V(2:end)).*diff(tout).*tout(2:end));
+        Error_Data.Case_IV.V_ITSE = sum((Error_Data.Case_IV.V(2:end).^2).*diff(tout).*tout(2:end));
         
     case "Case_V"
         Neum_Data.Case_V.V1_I = Info_N1_I(:,1:2);
@@ -137,7 +201,24 @@ switch Global_Data.case
         Car_Data.Case_V.Theta = theta;
         
         Error_Data.Case_V.XY = Ref_Data.XY(:,1:2) - Car_Data.Case_V.XY_2;
+        
+        Error_Data.Case_V.modXY = vecnorm(Error_Data.Case_V.XY')';
+        
+        Error_Data.Case_V.tot_ISE = sum((Error_Data.Case_V.modXY(2:end).^2).*diff(tout));
+        Error_Data.Case_V.tot_IAE = sum(abs(Error_Data.Case_V.modXY(2:end)).*diff(tout));
+        Error_Data.Case_V.tot_ITAE = sum(abs(Error_Data.Case_V.modXY(2:end)).*diff(tout).*tout(2:end));
+        Error_Data.Case_V.tot_ITSE = sum((Error_Data.Case_V.modXY(2:end).^2).*diff(tout).*tout(2:end));
+        
+        Error_Data.Case_V.ISE = sum((Error_Data.Case_V.XY(2:end,:).^2).*diff(tout));
+        Error_Data.Case_V.IAE = sum(abs(Error_Data.Case_V.XY(2:end,:)).*diff(tout));
+        Error_Data.Case_V.ITAE = sum(abs(Error_Data.Case_V.XY(2:end,:)).*diff(tout).*tout(2:end));
+        Error_Data.Case_V.ITSE = sum((Error_Data.Case_V.XY(2:end,:).^2).*diff(tout).*tout(2:end));
+        
         Error_Data.Case_V.V = Ref_Data.V(:,3) - v2_2;
+        Error_Data.Case_V.V_ISE = sum((Error_Data.Case_V.V(2:end,1).^2).*diff(tout));
+        Error_Data.Case_V.V_IAE = sum(abs(Error_Data.Case_V.V(2:end,1)).*diff(tout));
+        Error_Data.Case_V.V_ITAE = sum(abs(Error_Data.Case_V.V(2:end,1)).*diff(tout).*tout(2:end));
+        Error_Data.Case_V.V_ITSE = sum((Error_Data.Case_V.V(2:end,1).^2).*diff(tout).*tout(2:end));
         
     case "Case_VI"
         Neum_Data.Case_VI.V1 = Info_N1(:,1:2);
@@ -173,7 +254,23 @@ switch Global_Data.case
         Car_Data.Case_VI.Theta = theta;
         
         Error_Data.Case_VI.XY = Ref_Data.XY(:,1:2) - Car_Data.Case_VI.XY_2;
+        Error_Data.Case_VI.modXY = vecnorm(Error_Data.Case_VI.XY')';
+        
+        Error_Data.Case_VI.tot_ISE = sum((Error_Data.Case_VI.modXY(2:end).^2).*diff(tout));
+        Error_Data.Case_VI.tot_IAE = sum(abs(Error_Data.Case_VI.modXY(2:end)).*diff(tout));
+        Error_Data.Case_VI.tot_ITAE = sum(abs(Error_Data.Case_VI.modXY(2:end)).*diff(tout).*tout(2:end));
+        Error_Data.Case_VI.tot_ITSE = sum((Error_Data.Case_VI.modXY(2:end).^2).*diff(tout).*tout(2:end));
+        
+        Error_Data.Case_VI.ISE = sum((Error_Data.Case_VI.XY(2:end,:).^2).*diff(tout));
+        Error_Data.Case_VI.IAE = sum(abs(Error_Data.Case_VI.XY(2:end,:)).*diff(tout));
+        Error_Data.Case_VI.ITAE = sum(abs(Error_Data.Case_VI.XY(2:end,:)).*diff(tout).*tout(2:end));
+        Error_Data.Case_VI.ITSE = sum((Error_Data.Case_VI.XY(2:end,:).^2).*diff(tout).*tout(2:end));
+        
         Error_Data.Case_VI.V = Ref_Data.V(:,3) - Neum_Data.Case_VI.V2(:,1);
+        Error_Data.Case_VI.V_ISE = sum((Error_Data.Case_VI.V(2:end).^2).*diff(tout));
+        Error_Data.Case_VI.V_IAE = sum(abs(Error_Data.Case_VI.V(2:end)).*diff(tout));
+        Error_Data.Case_VI.V_ITAE = sum(abs(Error_Data.Case_VI.V(2:end)).*diff(tout).*tout(2:end));
+        Error_Data.Case_VI.V_ITSE = sum((Error_Data.Case_VI.V(2:end).^2).*diff(tout).*tout(2:end));
 end
 
 % Limpio las variables de Simulink
